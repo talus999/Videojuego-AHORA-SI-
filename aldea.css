@@ -11,3 +11,43 @@ body {
     color: white;
     text-shadow: 2px 2px 5px black;
 }
+
+#btnVolver {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #a09aa9;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 32px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#btnVolver:hover {
+    background-color: #5b5a5e;
+    transform: scale(1.1);
+}
+
+#btnTienda {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    background-color: #c09b4c;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 5px black;
+}
+
+#btnTienda:hover {
+    background-color: #e1b758;
+    transform: scale(1.1);
+}

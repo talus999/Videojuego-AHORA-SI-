@@ -1,5 +1,0 @@
-class Vendedor {
-    constructor(){
-        
-    }
-}

@@ -2,10 +2,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creación de Personaje</title>
+    <title>Aldea/Lobby</title>
     <link rel="stylesheet" href="aldea.css">
 </head>
 <body>
-   
+    <button id="btnVolver">Salir</button>
+    <button id="btnTienda">Tienda</button>
+
+    <script>
+        document.getElementById("btnVolver").addEventListener("click", () => {
+            window.location.href = "base.html";
+        });
+
+        document.getElementById("btnTienda").addEventListener("click", () => {
+            window.location.href = "tienda.html";
+        } )
+    </script>
 </body>
 </html>

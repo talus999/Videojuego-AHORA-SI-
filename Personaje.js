@@ -4,6 +4,7 @@ class Personaje{
         this.nivel = 1
         this.dañoBase = 4;
         this.vida = 5;
+        this.vidaPerdida = 0;
         this.velocidad = 4;
         this.armadura = 2;
         this.experiencia = 0;
@@ -15,8 +16,8 @@ class Personaje{
 
     recibirDaño(Enemigo){
         let dañoRecibido =  Enemigo.daño - this.armadura
-        this.vida -= dañoRecibido;
-        alert(`${Enemigo.nombre} te ha hecho ${dañoRecibido} puntos de daño. Vida restante: ${this.vida}. `);
+        this.vidaPerdida += dañoRecibido;
+        alert(`${Enemigo.nombre} te ha hecho ${dañoRecibido} puntos de daño. Vida restante: ${this.vida-this.vidaPerdida}. `);
     }
 
     atacar(Enemigo){
@@ -71,6 +72,45 @@ class Personaje{
         }
     }
 
+}
+
+class Guerrero extends Personaje {
+    constructor(nombre){
+        super(nombre);
+        this.plusExperiencia = 1.2;
+    }
+
+    ganarExperiencia(experienciaGanada){
+        this.experiencia += experienciaGanada * this.plusExperiencia;
+        console.log(`Has conseguido ${experienciaGanada} puntos de XP... ¿Qué? ¿Quieres una chapa?`)
+
+        while(this.experiencia >= this.experienciaNecesaria){
+            this.experiencia -= this.experienciaNecesaria;
+            this.subirNivel();
+        }
+    }
+}
+
+class Asesino extends Personaje {
+    constructor (nombre){
+        super(nombre);
+        this.vida = 3;
+        this.dañoBase = 7;
+        this.velocidad = 6;
+        this.armadura = 2;
+        this.probCritico = 25;
+    }
+
+    calcularEstadisticas(nivel){
+        this.vida = 3 + nivel;
+        this.dañoBase = 7 + nivel;
+        if (this.nivel%2 == 0){
+            this.armadura = 2 + nivel/2
+        }
+        if (this.nivel%3 == 0){
+            this.velocidad = 6 + nivel/3
+        }
+    }
 }
 
 class Mago extends Personaje {

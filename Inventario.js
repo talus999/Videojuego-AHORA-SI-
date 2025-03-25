@@ -1,22 +1,30 @@
+
 class Inventario {
     constructor(){
         this.capacidad = 5;
-        this.items = new Array (this.capacidad).fill(null);
+        this.inventario = new Array (this.capacidad).fill(null);
     }
 
     añadirAInventario(objeto) {
-        if (this.items.length < this.capacidad) {
-            this.items.push(objeto);
-            console.log(`${objeto} se ha añadido al inventario`)
+        let indiceVacio = this.inventario.indexOf(null); 
+
+        if (indiceVacio !== -1) {
+            this.inventario[indiceVacio] = objeto;
+            console.log(`${objeto} se ha añadido al inventario.`);
         } else {
-            console.log(`Tu inventario esta lleno, idiota.`)
+            console.log(`Tu inventario está lleno, idiota.`);
         }
     }
 
     tirarObjeto(objeto){
-        if (this.items.indexOf(objeto) !== -1){
-            this.items
+        let indice = this.items.indexOf(objeto);
+
+        if (indice !== -1){
+            this.inventario[indice] = null;
+            alert(`Has tirado ${objeto}. Observa como se destruye y no lo puedes recuperar, idiota.`)
         }
     }
+
+    
 
 }
