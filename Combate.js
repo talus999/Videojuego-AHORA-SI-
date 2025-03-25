@@ -23,7 +23,13 @@ class Combate{
     }
 
     turnoJugador(){
-        let opcion = prompt("¿Qué quieres hacer? \n1. Atacar\n2. Huir");
+        let opcion;
+
+        if (this.personaje instanceof Mago) {
+            opcion = prompt("¿Qué quieres hacer? \n1. Atacar\n2. Lanzar hechizo\n3. Huir");
+        } else {
+            opcion = prompt("¿Qué quieres hacer? \n1. Atacar\n2. Huir");
+        }
 
         if (opcion === "1"){
             this.personaje.atacar(this.enemigo)
@@ -32,10 +38,17 @@ class Combate{
                 return;
             }
             this.turno = "Enemigo";
-        } else if (opcion === "2") {
+        } else if (opcion === "2" && this.personaje instanceof Mago) {
+            this.personaje.lanzarHechizo(this.enemigo);
+            if (this.enemigo.vida <= 0) {
+                console.log(`Has ganado`);
+                return;
+            }
+            this.turno = "Enemigo";
+        } else if (opcion === "2" || (opcion === "3" && this.personaje instanceof Mago)) {
             this.huir();
         } else {
-            console.log("Eso no existe, imbecil. Pierdes tu turno.");
+            console.log("Eso no existe, imbécil. Pierdes tu turno.");
             this.turno = "Enemigo";
         }
         
@@ -44,7 +57,7 @@ class Combate{
 
     turnoEnemigo(){
         this.enemigo.atacar(this.personaje)
-        if (this.personaje.vida <= 0){
+        if (this.personaje.vidaPerdida >= this.personaje.vida){
             console.log(`Has sido derrotado`)
             return;
         }
@@ -52,7 +65,7 @@ class Combate{
     }
 
     huir() {
-        let probabilidadEscape = this.personaje.velocidad / (this.personaje.velocidad + this.enemigo.velocidad);
+        let probabilidadEscapar = this.personaje.velocidad / (this.personaje.velocidad + this.enemigo.velocidad);
         if (Math.random() < probabilidadEscape) {
             console.log("Has logrado escapar del combate.");
             return

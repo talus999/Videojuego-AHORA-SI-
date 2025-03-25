@@ -21,7 +21,7 @@ class Personaje{
     }
 
     atacar(Enemigo){
-        Enemigo.recibirDaño(this);
+        Enemigo.recibirDaño(this.daño);
 
         if (Enemigo.vida <= 0){
             this.ganarExperiencia(Enemigo.exp);
@@ -99,6 +99,7 @@ class Asesino extends Personaje {
         this.velocidad = 6;
         this.armadura = 2;
         this.probCritico = 25;
+        this.dañoCritico = 2;
     }
 
     calcularEstadisticas(nivel){
@@ -109,6 +110,22 @@ class Asesino extends Personaje {
         }
         if (this.nivel%3 == 0){
             this.velocidad = 6 + nivel/3
+        }
+    }
+
+    atacar(Enemigo){
+        let esCritico = Math.random() * 100 < this.probCritico;
+        let dañoFinal = this.dañoBase;
+
+        if (esCritico) {
+            dañoFinal *= this.dañoCritico;
+        }
+        
+        Enemigo.recibirDaño(dañoFinal);
+
+        if (Enemigo.vida <= 0){
+            this.ganarExperiencia(Enemigo.exp);
+            this.oro += Enemigo.oro;
         }
     }
 }
