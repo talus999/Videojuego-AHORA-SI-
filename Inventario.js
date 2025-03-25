@@ -16,6 +16,15 @@ class Inventario {
         }
     }
 
+    buscarObjeto(nombre) {
+        for (let objeto of this.inventario) {
+            if (objeto && objeto.descripcion.toLowerCase() === nombre.toLowerCase()) {
+                return objeto;
+            }
+        }
+        return null;
+    }
+
     tirarObjeto(objeto){
         let indice = this.items.indexOf(objeto);
 

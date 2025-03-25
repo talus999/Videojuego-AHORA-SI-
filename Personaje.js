@@ -72,12 +72,26 @@ class Personaje{
         }
     }
 
+    usarObjeto(){
+        let objeto = this.inventario.buscarObjeto(nombreObjeto);
+
+        if (objeto) {
+            if (objeto instanceof Consumible) {
+                objeto.usar(this);
+            } else {
+                console.log("Este objeto no se puede usar en combate.");
+            }
+        } else {
+            console.log("El objeto no está en tu inventario.");
+        }
+    }
+
 }
 
 class Guerrero extends Personaje {
     constructor(nombre){
         super(nombre);
-        this.plusExperiencia = 1.2;
+        this.plusExperiencia = 1.8;
     }
 
     ganarExperiencia(experienciaGanada){
@@ -137,7 +151,8 @@ class Mago extends Personaje {
         this.dañoBase = 6;  
         this.velocidad = 5;  
         this.armadura = 1;   
-        this.mana = 10;      
+        this.manaMaximo = 10; 
+        this.manaActual = this.manaMaximo;     
     }
 
     calcularEstadisticas(nivel){
@@ -145,15 +160,15 @@ class Mago extends Personaje {
         this.dañoBase = 6 + nivel;
         if (this.nivel%2 == 0){
             this.armadura = 1 + nivel/2
-            this.mana = 10 + nivel/2
+            this.manaMaximo = 10 + nivel/2
         }
     }
 
     lanzarHechizo(Enemigo) {
-        if (this.mana >= 3) {
+        if (this.manaMaximo >= 3) {
             let daño = this.daño * 1.5;
             Enemigo.recibirDaño({ nombre: "Hechizo", daño });
-            this.mana -= 3;
+            this.manaActual -= 3;
             console.log(`Lanzas un hechizo a ${Enemigo.nombre}.`);
         } else {
             console.log(`No tienes suficiente maná, estupido/a.`);
