@@ -26,7 +26,7 @@ class Inventario {
     }
 
     tirarObjeto(objeto){
-        let indice = this.items.indexOf(objeto);
+        let indice = this.inventario.indexOf(objeto);
 
         if (indice !== -1){
             this.inventario[indice] = null;

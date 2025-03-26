@@ -9,6 +9,10 @@ function guardarPartida(personaje) {
     console.log("¡Partida guardada!");
 }
 
+document.getElementById("Nueva Partida").addEventListener("click", () => {
+    window.location.href = "creacion.html";
+});
+
 document.getElementById("crearPersonaje").addEventListener("click", function() {
     let nombre = document.getElementById("nombre").value.trim();
     let clase = document.getElementById("clase").value;
@@ -32,11 +36,6 @@ document.getElementById("crearPersonaje").addEventListener("click", function() {
 
     alert("Personaje creado con éxito. ¡Bienvenido a la aldea!");
     window.location.href = "aldea.html";
-});
-
-document.getElementById("btnVolver").addEventListener("click", () => {
-    guardarPartida(personaje);
-    window.location.href = "base.html";
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -63,6 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", function(){
-    const botonNuevaPartida = document.getElementsById("Nueva Partida");
+    const botonNuevaPartida = document.getElementById("Nueva Partida");
 
 } )

@@ -5,8 +5,8 @@ class Personaje{
         this.dañoBase = 4;
         this.vida = 5;
         this.vidaPerdida = 0;
-        this.velocidad = 4;
-        this.armadura = 2;
+        this.velocidadBase = 4;
+        this.armaduraBase = 2;
         this.experiencia = 0;
         this.experienciaNecesaria= 20;
         this.oro = 0;
@@ -50,12 +50,12 @@ class Personaje{
         this.vida = 5 + nivel;
         this.dañoBase = 4 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = 2 +nivel/2
+            this.armadura = armaduraBase + nivel/2
         }
     }
 
     equiparArma(arma) {
-        if (this.inventario.items.includes(arma)) {
+        if (this.inventario.includes(arma)) {
             this.armaEquipada = arma;
             this.actualizarDaño();
             console.log(`Te has equipado ${arma.descripcion}.`);
@@ -110,8 +110,8 @@ class Asesino extends Personaje {
         super(nombre);
         this.vida = 3;
         this.dañoBase = 7;
-        this.velocidad = 6;
-        this.armadura = 2;
+        this.velocidadBase = 6;
+        this.armaduraBase = 2;
         this.probCritico = 25;
         this.dañoCritico = 2;
     }
@@ -120,10 +120,10 @@ class Asesino extends Personaje {
         this.vida = 3 + nivel;
         this.dañoBase = 7 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = 2 + nivel/2
+            this.armadura = armaduraBase + nMath.floor(nivel / 2)
         }
         if (this.nivel%3 == 0){
-            this.velocidad = 6 + nivel/3
+            this.velocidad = velocidadBase + Math.floor(nivel / 3)
         }
     }
 
@@ -149,8 +149,8 @@ class Mago extends Personaje {
         super(nombre);
         this.vida = 4;
         this.dañoBase = 6;  
-        this.velocidad = 5;  
-        this.armadura = 1;   
+        this.velocidadBase = 5;  
+        this.armaduraBase = 1;   
         this.manaMaximo = 10; 
         this.manaActual = this.manaMaximo;     
     }
@@ -159,8 +159,8 @@ class Mago extends Personaje {
         this.vida = 4 + nivel;
         this.dañoBase = 6 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = 1 + nivel/2
-            this.manaMaximo = 10 + nivel/2
+            this.armadura = armaduraBase + Math.floor(nivel / 2);
+            this.manaMaximo = 10 + nivel/2;
         }
     }
 

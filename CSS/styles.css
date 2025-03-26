@@ -1,5 +1,5 @@
 body {
-    background-image: url(Img/imgFondos/imgMenu.jpg);
+    background-image: url(../Img/imgFondos/imgMenu.jpg);
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -58,4 +58,8 @@ button {
 button:hover{
     background-color: #5b5a5e;
     transform: scale(1.1);
+}
+
+video{
+    display: none;
 }
