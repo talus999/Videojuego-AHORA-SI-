@@ -23,10 +23,10 @@ body {
 }
 
 .titulo1:hover {
-    transform: scale(0.2);
+    transform: scale(5.6);
 }
 .titulo2:hover {
-    transform: scale(2.6);
+    transform: scale(0.1);
 }
 .titulo3:hover {
     transform: scale(1.9);

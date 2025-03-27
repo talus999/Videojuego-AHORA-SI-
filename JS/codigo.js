@@ -1,41 +1,32 @@
 
-function guardarPartida(personaje) {
+export function guardarPartida(personaje) {   
+    debugger;
     localStorage.setItem("nivel", personaje.nivel);
     localStorage.setItem("experiencia", personaje.experiencia);
-    localStorage.setItem("experiencia necesaria", personaje.experienciaNecesaria);
+    localStorage.setItem("experienciaNecesaria", personaje.experienciaNecesaria);
+    localStorage.setItem("armaduraBase", personaje.armaduraBase);
+    localStorage.setItem("velocidadBase", personaje.velocidadBase);
     localStorage.setItem("oro", personaje.oro);
     localStorage.setItem("inventario",JSON.stringify(personaje.inventario.items));
-    localStorage.setItem("arma equipada", personaje.armaEquipada);
+    localStorage.setItem("armaEquipada", personaje.armaEquipada);
     console.log("¡Partida guardada!");
 }
 
-document.getElementById("Nueva Partida").addEventListener("click", () => {
+export function cargarPersonaje(){
+    return {
+        nivel: parseInt(localStorage.getItem("nivel")),
+        experiencia: parseInt(localStorage.getItem("experiencia")),
+        experienciaNecesaria: parseInt(localStorage.getItem("experienciaNecesaria")),
+        armaduraBase: parseInt(localStorage.getItem("armaduraBase")),
+        velocidadBase: parseInt(localStorage.getItem("velocidadBase")),
+        oro: parseInt(localStorage.getItem("oro")),
+        inventario: parseInt(localStorage.getItem("inventario")),
+        armaEquipada: parseInt(localStorage.getItem("armaEquipada"))
+    }
+}
+
+document.getElementById("Nueva Partida").addEventListener("click", function() {
     window.location.href = "creacion.html";
-});
-
-document.getElementById("crearPersonaje").addEventListener("click", function() {
-    let nombre = document.getElementById("nombre").value.trim();
-    let clase = document.getElementById("clase").value;
-
-    debugger;
-    if (nombre === "") {
-        alert("Por favor, ingresa un nombre para tu personaje.");
-        return;
-    }
-
-    let personaje;
-    if (clase === "guerrero") {
-        personaje = new Guerrero(nombre);
-    } else if (clase === "mago") {
-        personaje = new Mago(nombre);
-    } else if (clase === "asesino"){
-        personaje = new Asesino(nombre);
-    }
-
-    guardarPartida(personaje);
-
-    alert("Personaje creado con éxito. ¡Bienvenido a la aldea!");
-    window.location.href = "aldea.html";
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -60,8 +51,3 @@ document.addEventListener("DOMContentLoaded", function() {
         botonBorrarPartida.disabled = false;
     }
 });
-
-document.addEventListener("DOMContentLoaded", function(){
-    const botonNuevaPartida = document.getElementById("Nueva Partida");
-
-} )

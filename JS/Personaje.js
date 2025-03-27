@@ -14,6 +14,24 @@ class Personaje{
         this.armaEquipada = null;
     }
 
+    equiparArma(arma) {
+        if (this.inventario.items.includes(arma)) {
+            this.armaEquipada = arma;
+            this.actualizarDaño();
+            console.log(`Te has equipado ${arma.descripcion}.`);
+        } else {
+            console.log("¿Que te quieres equipar? ¿El aire?");
+        }
+    }
+
+    actualizarDaño(){
+        if (this.armaEquipada != null){
+            this.daño = this.dañoBase + this.armaEquipada.daño;
+        } else {
+            this.daño = this.dañoBase;
+        }
+    }
+
     recibirDaño(Enemigo){
         let dañoRecibido =  Enemigo.daño - this.armadura
         this.vidaPerdida += dañoRecibido;
@@ -50,25 +68,7 @@ class Personaje{
         this.vida = 5 + nivel;
         this.dañoBase = 4 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = armaduraBase + nivel/2
-        }
-    }
-
-    equiparArma(arma) {
-        if (this.inventario.includes(arma)) {
-            this.armaEquipada = arma;
-            this.actualizarDaño();
-            console.log(`Te has equipado ${arma.descripcion}.`);
-        } else {
-            console.log("¿Que te quieres equipar? ¿El aire?");
-        }
-    }
-
-    actualizarDaño(){
-        if (this.armaEquipada != null){
-            this.daño = this.dañoBase + this.armaEquipada.daño;
-        } else {
-            this.daño = this.dañoBase;
+            this.armadura = this.armaduraBase + nivel/2
         }
     }
 
@@ -88,7 +88,7 @@ class Personaje{
 
 }
 
-class Guerrero extends Personaje {
+export class Guerrero extends Personaje {
     constructor(nombre){
         super(nombre);
         this.plusExperiencia = 1.8;
@@ -105,7 +105,7 @@ class Guerrero extends Personaje {
     }
 }
 
-class Asesino extends Personaje {
+export class Asesino extends Personaje {
     constructor (nombre){
         super(nombre);
         this.vida = 3;
@@ -120,10 +120,10 @@ class Asesino extends Personaje {
         this.vida = 3 + nivel;
         this.dañoBase = 7 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = armaduraBase + nMath.floor(nivel / 2)
+            this.armadura = this.armaduraBase + Math.floor(nivel / 2)
         }
         if (this.nivel%3 == 0){
-            this.velocidad = velocidadBase + Math.floor(nivel / 3)
+            this.velocidad = this.velocidadBase + Math.floor(nivel / 3)
         }
     }
 
@@ -144,7 +144,7 @@ class Asesino extends Personaje {
     }
 }
 
-class Mago extends Personaje {
+export class Mago extends Personaje {
     constructor(nombre) {
         super(nombre);
         this.vida = 4;
@@ -159,13 +159,13 @@ class Mago extends Personaje {
         this.vida = 4 + nivel;
         this.dañoBase = 6 + nivel;
         if (this.nivel%2 == 0){
-            this.armadura = armaduraBase + Math.floor(nivel / 2);
+            this.armadura = this.armaduraBase + Math.floor(nivel / 2);
             this.manaMaximo = 10 + nivel/2;
         }
     }
 
     lanzarHechizo(Enemigo) {
-        if (this.manaMaximo >= 3) {
+        if (this.manaActual >= 3) {
             let daño = this.daño * 1.5;
             Enemigo.recibirDaño({ nombre: "Hechizo", daño });
             this.manaActual -= 3;
