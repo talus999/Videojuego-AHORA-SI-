@@ -1,14 +1,19 @@
 import { guardarPartida, cargarPersonaje } from "./codigo.js";
+import { Personaje } from "./Personaje.js";
 
-addEventListener("DOMContentLoaded", function(){
-    cargarPersonaje()
+let personaje;
+
+document.addEventListener("DOMContentLoaded", function(){
+    const datos = cargarPersonaje();
+    personaje = new Personaje(datos);
 });
 
 document.getElementById("btnVolver").addEventListener("click", function()  {
+    console.log(personaje)
     guardarPartida(personaje);
-    window.location.href = "../HTML/base.html";
+    window.location.href = "base.html";
 });
 
 document.getElementById("btnTienda").addEventListener("click", function()  {
-    window.location.href = "./HTML/tienda.html";
+    window.location.href = "tienda.html";
 });

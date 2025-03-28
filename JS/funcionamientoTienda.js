@@ -1,7 +1,11 @@
 import { guardarPartida, cargarPersonaje } from "./codigo.js";
+import { Personaje } from "./Personaje.js";
 
-addEventListener("DOMContentLoaded", function(){
-    cargarPersonaje()
+let personaje;
+
+document.addEventListener("DOMContentLoaded", function(){
+    const datos = cargarPersonaje();
+    personaje = new Personaje(datos);
 });
 
 document.getElementById("salir").addEventListener("click", () => {

@@ -1,5 +1,5 @@
 
-class Inventario {
+export class Inventario {
     constructor(){
         this.capacidad = 5;
         this.inventario = new Array (this.capacidad).fill(null);

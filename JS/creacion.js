@@ -1,4 +1,5 @@
 import { guardarPartida } from "../JS/codigo.js";
+import { Personaje } from "./Personaje.js";
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -7,22 +8,22 @@ document.addEventListener("DOMContentLoaded", function(){
     const botonCrear = document.getElementById("crearPersonaje");
     
     botonCrear.addEventListener("click", function() {
-        let nombre = document.getElementById("nombre").value.trim();
+        let datos = document.getElementById("nombre").value.trim();
         let clase = document.getElementById("clase").value;
         console.log("Creando personaaje");
         debugger;
-        if (nombre === "") {
+        if (datos === "") {
             alert("Por favor, ingresa un nombre para tu personaje.");
             return;
         }
     
         let personaje;
         if (clase === "guerrero") {
-            personaje = new Guerrero(nombre);
+            personaje = new Personaje(datos);
         } else if (clase === "mago") {
-            personaje = new Mago(nombre);
+            personaje = new Personaje(datos);
         } else if (clase === "asesino"){
-            personaje = new Asesino(nombre);
+            personaje = new Personaje(datos);
         }
         guardarPartida(personaje);
         alert("Personaje creado con éxito. ¡Bienvenido a la aldea!");

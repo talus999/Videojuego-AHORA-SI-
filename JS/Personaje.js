@@ -1,18 +1,40 @@
-class Personaje{
-    constructor(nombre){
-        this.nombre = nombre;
-        this.nivel = 1
-        this.dañoBase = 4;
-        this.vida = 5;
-        this.vidaPerdida = 0;
-        this.velocidadBase = 4;
-        this.armaduraBase = 2;
-        this.experiencia = 0;
-        this.experienciaNecesaria= 20;
-        this.oro = 0;
-        this.inventario = new Inventario();
-        this.armaEquipada = null;
-    }
+export class Personaje{
+        constructor(datos) {
+            if (typeof datos === "string") {
+                this.nombre = datos;
+                this.nivel = 1;
+                this.experiencia = 0;
+                this.experienciaNecesaria = 20;
+                this.oro = 0;
+                this.inventario = new Inventario();
+                this.armaEquipada = null;
+    
+            } else if (typeof datos === "object") {
+                this.nombre = datos.nombre || "Protagonista Genérico";
+                this.nivel = datos.nivel || 1;
+                this.experiencia = datos.experiencia || 0;
+                this.experienciaNecesaria = datos.experienciaNecesaria || 20;
+                this.oro = datos.oro || 0;
+                this.inventario = new Inventario();
+                this.armaEquipada = datos.armaEquipada || null;
+    
+                if (datos.inventario) {
+                    try {
+                        let items = JSON.parse(datos.inventario);
+                        if (Array.isArray(items)) {
+                            this.inventario.items = items;
+                        }
+                    } catch (error) {
+                        console.error("Error al cargar el inventario:", error);
+                    }
+                }
+            }
+            this.calcularEstadisticas(this.nivel);
+            this.actualizarDaño();
+        }
+    
+
+
 
     equiparArma(arma) {
         if (this.inventario.items.includes(arma)) {
@@ -87,8 +109,8 @@ class Personaje{
     }
 
 }
-
-class Guerrero extends Personaje {
+/**
+ * class Guerrero extends Personaje {
     constructor(nombre){
         super(nombre);
         this.plusExperiencia = 1.8;
@@ -175,3 +197,4 @@ class Mago extends Personaje {
         }
     }
 }
+ */

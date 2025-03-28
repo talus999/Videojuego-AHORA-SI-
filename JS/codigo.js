@@ -1,3 +1,5 @@
+import { Personaje } from "./Personaje.js";
+
 
 export function guardarPartida(personaje) {   
     debugger;
@@ -8,46 +10,36 @@ export function guardarPartida(personaje) {
     localStorage.setItem("velocidadBase", personaje.velocidadBase);
     localStorage.setItem("oro", personaje.oro);
     localStorage.setItem("inventario",JSON.stringify(personaje.inventario.items));
-    localStorage.setItem("armaEquipada", personaje.armaEquipada);
+    localStorage.setItem("armaEquipada", JSON.stringify(personaje.armaEquipada));
     console.log("¡Partida guardada!");
 }
 
 export function cargarPersonaje(){
-    return {
-        nivel: parseInt(localStorage.getItem("nivel")),
-        experiencia: parseInt(localStorage.getItem("experiencia")),
-        experienciaNecesaria: parseInt(localStorage.getItem("experienciaNecesaria")),
-        armaduraBase: parseInt(localStorage.getItem("armaduraBase")),
-        velocidadBase: parseInt(localStorage.getItem("velocidadBase")),
-        oro: parseInt(localStorage.getItem("oro")),
-        inventario: parseInt(localStorage.getItem("inventario")),
-        armaEquipada: parseInt(localStorage.getItem("armaEquipada"))
+    const datos = {
+        nombre: localStorage.getItem("nombre") || "Protagonista Generico",
+        nivel: parseInt(localStorage.getItem("nivel")) || 1,
+        experiencia: parseInt(localStorage.getItem("experiencia")) || 0,
+        experienciaNecesaria: parseInt(localStorage.getItem("experienciaNecesaria")) || 20,
+        armaduraBase: parseInt(localStorage.getItem("armaduraBase")) || 2,
+        velocidadBase: parseInt(localStorage.getItem("velocidadBase")) || 4,
+        oro: parseInt(localStorage.getItem("oro")) || 0,
+        inventario: JSON.parse(localStorage.getItem("inventario")),
+        armaEquipada: JSON.parse(localStorage.getItem("armaEquipada"))
+    };
+
+    if (datos.inventario) {
+        const inventario = new Inventario();
+        datos.inventario.forEach((item, index) => {
+            if (index < inventario.capacidad) {
+                inventario.inventario[index] = item;
+            }
+        });
+
+        datos.inventario = inventario;
     }
+
+    return datos;
+
+
 }
 
-document.getElementById("Nueva Partida").addEventListener("click", function() {
-    window.location.href = "creacion.html";
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const botonContinuar = document.getElementById("Continuar");
-    const botonBorrarPartida = document.getElementById("Borrar Partida");
-
-    botonContinuar.addEventListener("click", function() {
-            window.location.href = "aldea.html";
-    });
-    botonBorrarPartida.addEventListener("click", function() {
-        localStorage.clear();
-        alert("La partida ha sido borrada")
-        botonContinuar.disabled = true;
-        botonBorrarPartida.disabled = true;
-    });
-
-    if (localStorage.getItem("nivel") === null) {
-        botonContinuar.disabled = true;
-        botonBorrarPartida.disabled = true;
-    } else {
-        botonContinuar.disabled = false;
-        botonBorrarPartida.disabled = false;
-    }
-});

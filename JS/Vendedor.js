@@ -29,7 +29,7 @@ class Vendedor {
         return inventario;
     }
 
-    vender(){
-
+    venderAJugador(){
+        
     }
 }
