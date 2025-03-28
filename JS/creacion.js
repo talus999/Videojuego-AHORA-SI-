@@ -1,4 +1,3 @@
-import { Guerrero, Mago, Asesino } from "../Personaje.js";
 import { guardarPartida } from "../JS/codigo.js";
 
 document.getElementById("crearPersonaje").addEventListener("click", function() {

@@ -88,7 +88,7 @@ class Personaje{
 
 }
 
-export class Guerrero extends Personaje {
+class Guerrero extends Personaje {
     constructor(nombre){
         super(nombre);
         this.plusExperiencia = 1.8;
@@ -105,7 +105,7 @@ export class Guerrero extends Personaje {
     }
 }
 
-export class Asesino extends Personaje {
+class Asesino extends Personaje {
     constructor (nombre){
         super(nombre);
         this.vida = 3;
@@ -144,7 +144,7 @@ export class Asesino extends Personaje {
     }
 }
 
-export class Mago extends Personaje {
+class Mago extends Personaje {
     constructor(nombre) {
         super(nombre);
         this.vida = 4;
