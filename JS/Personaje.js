@@ -1,8 +1,12 @@
+import { Inventario } from "./Inventario.js";
+
 export class Personaje{
         constructor(datos) {
             if (typeof datos === "string") {
                 this.nombre = datos;
                 this.nivel = 1;
+                this.armaduraBase = 2;
+                this.velocidadBase = 4;
                 this.experiencia = 0;
                 this.experienciaNecesaria = 20;
                 this.oro = 0;
@@ -18,15 +22,13 @@ export class Personaje{
                 this.inventario = new Inventario();
                 this.armaEquipada = datos.armaEquipada || null;
     
-                if (datos.inventario) {
-                    try {
-                        let items = JSON.parse(datos.inventario);
-                        if (Array.isArray(items)) {
-                            this.inventario.items = items;
+                this.inventario = new Inventario();
+                if (Array.isArray(datos.inventario)) {
+                    datos.inventario.forEach((item, index) => {
+                        if (index < this.inventario.capacidad) {
+                            this.inventario.inventario[index] = item;
                         }
-                    } catch (error) {
-                        console.error("Error al cargar el inventario:", error);
-                    }
+                    });
                 }
             }
             this.calcularEstadisticas(this.nivel);

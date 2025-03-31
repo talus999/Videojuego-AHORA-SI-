@@ -51,3 +51,7 @@ body {
     background-color: #e1b758;
     transform: scale(1.1);
 }
+
+video{
+    display: none;
+}

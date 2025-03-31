@@ -1,4 +1,4 @@
-import { guardarPartida } from "../JS/codigo.js";
+import { guardarPartida } from "./codigo.js";
 import { Personaje } from "./Personaje.js";
 
 document.addEventListener("DOMContentLoaded", function(){

@@ -1,3 +1,6 @@
+import { Inventario } from "./Inventario.js";
+import { Personaje } from "./Personaje.js";
+
 class Vendedor {
     constructor(){
         this.objetos = this.generarObjetos();
@@ -31,5 +34,23 @@ class Vendedor {
 
     venderAJugador(){
         
+    }
+
+    comprarDelJugador(personaje, nombreObjeto){
+        let objeto = personaje.inventario.buscarObjeto(nombreObjeto);
+
+        if (!objeto) {
+            console.log("No tienes ese objeto en tu inventario, idiota.");
+            return false;
+        }
+        
+        let precioCompra = Math.floor(objeto.precio / 2);
+
+        personaje.oro += precioCompra;
+
+        personaje.inventario.tirarObjeto(nombreObjeto);
+
+        console.log(`Un placer hacer negocios contigo, ${personaje.nombre}`)
+        return true;
     }
 }

@@ -30,7 +30,6 @@ export class Inventario {
 
         if (indice !== -1){
             this.inventario[indice] = null;
-            alert(`Has tirado ${objeto}. Observa como se destruye y no lo puedes recuperar, idiota.`)
         }
     }
 

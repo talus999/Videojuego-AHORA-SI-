@@ -1,15 +1,17 @@
 import { Personaje } from "./Personaje.js";
+import { Inventario } from "./Inventario.js";
 
 
 export function guardarPartida(personaje) {   
     debugger;
+    localStorage.setItem("nombre", personaje.nombre);
     localStorage.setItem("nivel", personaje.nivel);
     localStorage.setItem("experiencia", personaje.experiencia);
     localStorage.setItem("experienciaNecesaria", personaje.experienciaNecesaria);
     localStorage.setItem("armaduraBase", personaje.armaduraBase);
     localStorage.setItem("velocidadBase", personaje.velocidadBase);
     localStorage.setItem("oro", personaje.oro);
-    localStorage.setItem("inventario",JSON.stringify(personaje.inventario.items));
+    localStorage.setItem("inventario",JSON.stringify(personaje.inventario.inventario));
     localStorage.setItem("armaEquipada", JSON.stringify(personaje.armaEquipada));
     console.log("¡Partida guardada!");
 }
@@ -27,18 +29,26 @@ export function cargarPersonaje(){
         armaEquipada: JSON.parse(localStorage.getItem("armaEquipada"))
     };
 
-    if (datos.inventario) {
-        const inventario = new Inventario();
-        datos.inventario.forEach((item, index) => {
-            if (index < inventario.capacidad) {
-                inventario.inventario[index] = item;
-            }
-        });
+    const inventario = new Inventario();
+    datos.inventario.forEach((item, index) => {
+        if (index < inventario.capacidad) {
+            inventario.inventario[index] = item;
+        }
+    });
 
-        datos.inventario = inventario;
-    }
+    const personaje = new Personaje(
+        datos.nombre,
+        datos.nivel,
+        datos.experiencia,
+        datos.experienciaNecesaria,
+        datos.armaduraBase,
+        datos.velocidadBase,
+        datos.oro,
+        inventario,
+        datos.armaEquipada
+    );
 
-    return datos;
+    return personaje;
 
 
 }
