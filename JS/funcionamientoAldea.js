@@ -1,5 +1,6 @@
 import { guardarPartida, cargarPersonaje } from "./codigo.js";
 import { Personaje } from "./Personaje.js";
+import { Vendedor } from "./Vendedor.js";
 
 let personaje;
 

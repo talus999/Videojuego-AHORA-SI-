@@ -1,10 +1,10 @@
 import { Inventario } from "./Inventario.js";
 import { Personaje } from "./Personaje.js";
 
-class Vendedor {
+ export class Vendedor {
     constructor(){
         this.objetos = this.generarObjetos();
-        this.inventario = this.generarInventario;
+        this.inventario = this.generarInventario();
     }
 
     generarPoolObjetos() {

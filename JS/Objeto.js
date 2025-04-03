@@ -8,7 +8,7 @@ class Objetos {
 
 }
 
-class Arma extends Objetos {
+export class Arma extends Objetos {
     constructor (peso, nombre, descripcion, precio, daño, etiqueta){
         super(peso, nombre, descripcion, precio);
         this.daño = daño;
@@ -16,7 +16,7 @@ class Arma extends Objetos {
     }
 }
 
-class Consumible extends Objetos {
+export class Consumible extends Objetos {
     constructor (peso, nombre, descripcion, precio, tipoEfecto, valorEfecto){
         super(peso, nombre, descripcion, precio);
         this.tipoEfecto = tipoEfecto;

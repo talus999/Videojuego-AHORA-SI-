@@ -13,11 +13,19 @@
         <button id="salir">Salir</button>
     </div>
 
-    <video autoplay onloadstart="this.volume=0.5" src="../sounds/003 La tienda.mp4"></video>
+    <video autoplay onloadstart="this.volume=0.5" src="../recursos/sounds/003 La tienda.mp4"></video>
+
+    <div id="contenedor-compra" style="display:none;">
+        <div id="opciones-compra" class="compra-opciones">
+        </div>
+        <div id="detalles-objeto" class="compra-detalles">
+        </div>
+    </div>
 
     <script type="module" src="../JS/funcionamientoTienda.js"></script>
-    <script src="../JS/Vendedor.js"></script>
+    <script type="module" src="../JS/Vendedor.js"></script>
     <script type="module" src="../JS/Personaje.js"></script>
+    <script type="module" src="../JS/Inventario.js"></script>
     <script type="module" src="../JS/codigo.js"></script>
 
 </body>

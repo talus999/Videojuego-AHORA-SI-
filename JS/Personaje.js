@@ -1,4 +1,5 @@
 import { Inventario } from "./Inventario.js";
+import { Arma, Consumible } from "./Objetos.js";
 
 export class Personaje{
         constructor(datos) {
@@ -96,7 +97,7 @@ export class Personaje{
         }
     }
 
-    usarObjeto(){
+    usarObjeto(nombreObjeto){
         let objeto = this.inventario.buscarObjeto(nombreObjeto);
 
         if (objeto) {
