@@ -1,9 +1,10 @@
 import { Inventario } from "./Inventario.js";
 import { Personaje } from "./Personaje.js";
+import { Arma, Consumible } from "./Objeto.js";
 
  export class Vendedor {
     constructor(){
-        this.objetos = this.generarObjetos();
+        this.objetos = this.generarPoolObjetos();
         this.inventario = this.generarInventario();
     }
 
@@ -23,7 +24,7 @@ import { Personaje } from "./Personaje.js";
         const inventario = [];
         const todosLosObjetos = this.objetos;
 
-        while (inventario.length < 5 && objetosDisponibles.length > 0){
+        while (inventario.length < 5 && todosLosObjetos.length > 0){
             let indiceRandom = Math.floor(Math.random()*todosLosObjetos.length);
             let objetoParaVender = todosLosObjetos.splice(indiceRandom,1)[0];
             inventario.push(objetoParaVender);
@@ -32,8 +33,28 @@ import { Personaje } from "./Personaje.js";
         return inventario;
     }
 
-    venderAJugador(){
-        
+    venderAJugador(personaje, nombreObjeto){
+        let objeto = this.inventario.find(obj => obj.nombre.toLowerCase() === nombreObjeto.toLowerCase());
+    
+        if (!objeto) {
+            console.log("No tengo de eso, elige otra cosa.");
+            return false;
+        }
+    
+        if (personaje.oro < objeto.precio) {
+            console.log("No tienes suficiente oro. Vuelve cuando tengas dinero y dejes de hacerme perder el tiempo.");
+            return false;
+        }
+    
+        if (personaje.inventario.inventario.indexOf(null) === -1) {
+            console.log("No tienes espacio en tu inventario, vuelve cuando lo limpies y dejes de hacerme perder el tiempo.");
+            return false;
+        }
+    
+        personaje.oro -= objeto.precio;
+        personaje.inventario.añadirAInventario(objeto);
+        console.log(`Gracias por tu compra, ${personaje.nombre}.`);
+        return true;
     }
 
     comprarDelJugador(personaje, nombreObjeto){

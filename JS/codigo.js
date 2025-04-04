@@ -49,7 +49,5 @@ export function cargarPersonaje(){
     );
 
     return personaje;
-
-
 }
 

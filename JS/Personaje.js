@@ -1,5 +1,5 @@
 import { Inventario } from "./Inventario.js";
-import { Arma, Consumible } from "./Objetos.js";
+import { Arma, Consumible } from "./Objeto.js";
 
 export class Personaje{
         constructor(datos) {
