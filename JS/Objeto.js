@@ -9,10 +9,9 @@ class Objetos {
 }
 
 export class Arma extends Objetos {
-    constructor (peso, nombre, descripcion, precio, daño, etiqueta){
+    constructor (peso, nombre, descripcion, precio, daño){
         super(peso, nombre, descripcion, precio);
         this.daño = daño;
-        this.etiqueta = etiqueta
     }
 }
 

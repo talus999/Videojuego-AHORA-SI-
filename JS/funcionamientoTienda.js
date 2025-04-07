@@ -36,6 +36,10 @@ document.getElementById("confirmar-compra").addEventListener("click", () => {
     }
 });
 
+document.getElementById("cancelar-compra").addEventListener("click", () => {
+    volverAlMenu();
+});
+
 function mostrarObjetosVendedor() {
     let listaObjetos = document.getElementById("opciones-compra");
     listaObjetos.innerHTML = ""; // Limpiar lista
@@ -55,11 +59,13 @@ function mostrarObjetosVendedor() {
 }
 
 function mostrarDetallesObjeto(objeto) {
-    let detalles = document.getElementById("detalles-objeto");
+    const detalles = document.getElementById("detalles-objeto");
     detalles.style.display = "block";
-
-    document.getElementById("descripcion-objeto").textContent = objeto.descripcion;
-    document.getElementById("precio-objeto").textContent = `Precio: ${objeto.precio} oro`;
+    detalles.innerHTML = `
+        <h3>${objeto.nombre}</h3>
+        <p>${objeto.descripcion}</p>
+        <p>Precio: ${objeto.precio} oro</p>
+    `;
 }
 
 document.getElementById("vender").addEventListener("click", () => {
@@ -92,27 +98,26 @@ function mostrarDetallesVenta(objeto) {
     let detalles = document.getElementById("detalles-venta");
     detalles.style.display = "block";
 
-    document.getElementById("detalles-venta").innerHTML = `
+    detalles.innerHTML = `
         <h3>${objeto.nombre}</h3>
         <p>${objeto.descripcion}</p>
         <p>Te lo compro por: ${Math.floor(objeto.precio / 2)} oro</p>
-        <button id="confirmar-venta">Vender</button>
-        <button id="cancelar-venta">Cancelar</button>
     `;
-
-    document.getElementById("confirmar-venta").addEventListener("click", () => {
-        const resultado = vendedor.comprarDelJugador(personaje, objeto.nombre);
-        if (resultado) {
-            volverAlMenu();
-        } else {
-            alert("No se pudo completar la venta.");
-        }
-    });
-
-    document.getElementById("cancelar-venta").addEventListener("click", () => {
-        volverAlMenu();
-    });
 }
+
+
+document.getElementById("confirmar-venta").addEventListener("click", () => {
+    const resultado = vendedor.comprarDelJugador(personaje, objeto.nombre);
+    if (resultado) {
+        volverAlMenu();
+    } else {
+        alert("No se pudo completar la venta.");
+    }
+});
+
+document.getElementById("cancelar-venta").addEventListener("click", () => {
+    volverAlMenu();
+});
 
 function volverAlMenu() {
     document.getElementById("contenedor-compra").style.display = "none";
