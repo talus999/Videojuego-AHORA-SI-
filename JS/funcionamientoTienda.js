@@ -47,7 +47,7 @@ function mostrarObjetosVendedor() {
     vendedor.inventario.forEach(objeto => {
         let item = document.createElement("div");
         item.classList.add("objeto");
-        item.textContent = objeto.descripcion;
+        item.textContent = objeto.nombre;
         
         item.addEventListener("click", () => {
             objetoSeleccionado = objeto;
