@@ -1,5 +1,12 @@
 document.getElementById("Nueva Partida").addEventListener("click", function() {
-    window.location.href = "creacion.html";
+    if (localStorage.getItem("nivel") === null){
+        window.location.href = "creacion.html";
+    } else {
+        localStorage.clear();
+        alert("La partida ha sido borrada, creando nueva partida");
+        window.location.href = "creacion.html";
+    }
+    
 });
 
 document.addEventListener("DOMContentLoaded", function() {
