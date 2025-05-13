@@ -66,7 +66,7 @@ class Combate{
 
     huir() {
         let probabilidadEscapar = this.personaje.velocidad / (this.personaje.velocidad + this.enemigo.velocidad);
-        if (Math.random() < probabilidadEscape) {
+        if (Math.random() < probabilidadEscapar) {
             console.log("Has logrado escapar del combate.");
             return
         } else {

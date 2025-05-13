@@ -1,9 +1,20 @@
 import { Personaje } from "./Personaje.js";
 import { Inventario } from "./Inventario.js";
+import { Arma, Consumible } from "./Objeto.js";
 
+function reconstruirObjeto(obj) {
+    if (!obj || !obj.tipo) return null;
+    switch (obj.tipo) {
+        case "arma":
+            return new Arma(obj.peso, obj.nombre, obj.descripcion, obj.precio, obj.daño);
+        case "consumible":
+            return new Consumible(obj.peso, obj.nombre, obj.descripcion, obj.precio, obj.tipoEfecto, obj.valorEfecto);
+        default:
+            return null;
+    }
+}
 
-export function guardarPartida(personaje) {   
-    debugger;
+export function guardarPartida(personaje) {
     localStorage.setItem("nombre", personaje.nombre);
     localStorage.setItem("nivel", personaje.nivel);
     localStorage.setItem("experiencia", personaje.experiencia);
@@ -11,43 +22,38 @@ export function guardarPartida(personaje) {
     localStorage.setItem("armaduraBase", personaje.armaduraBase);
     localStorage.setItem("velocidadBase", personaje.velocidadBase);
     localStorage.setItem("oro", personaje.oro);
-    localStorage.setItem("inventario",JSON.stringify(personaje.inventario.inventario));
-    localStorage.setItem("armaEquipada", JSON.stringify(personaje.armaEquipada));
+
+    const rawInv = personaje.inventario.inventario.map(item => {
+        if (!item) return null;
+        return {
+            ...item,
+            tipo: item instanceof Arma ? "arma" : item instanceof Consumible ? "consumible" : null
+        };
+    });
+    localStorage.setItem("inventario", JSON.stringify(rawInv));
+    const rawArma = personaje.armaEquipada
+        ? { ...personaje.armaEquipada, tipo: "arma" }
+        : null;
+    localStorage.setItem("armaEquipada", JSON.stringify(rawArma));
     console.log("¡Partida guardada!");
 }
 
-export function cargarPersonaje(){
+export function cargarPersonaje() {
     const datos = {
         nombre: localStorage.getItem("nombre") || "Protagonista Generico",
         nivel: parseInt(localStorage.getItem("nivel")) || 1,
         experiencia: parseInt(localStorage.getItem("experiencia")) || 0,
         experienciaNecesaria: parseInt(localStorage.getItem("experienciaNecesaria")) || 20,
-        armaduraBase: parseInt(localStorage.getItem("armaduraBase")) || 2,
-        velocidadBase: parseInt(localStorage.getItem("velocidadBase")) || 4,
-        oro: parseInt(localStorage.getItem("oro")) || 0,
-        inventario: JSON.parse(localStorage.getItem("inventario")),
-        armaEquipada: JSON.parse(localStorage.getItem("armaEquipada"))
+        armaduraBase: parseFloat(localStorage.getItem("armaduraBase")) || 2,
+        velocidadBase: parseFloat(localStorage.getItem("velocidadBase")) || 4,
+        oro: parseInt(localStorage.getItem("oro")) || 0
     };
 
-    const inventario = new Inventario();
-    datos.inventario.forEach((item, index) => {
-        if (index < inventario.capacidad) {
-            inventario.inventario[index] = item;
-        }
-    });
+    const rawInv = JSON.parse(localStorage.getItem("inventario")) || [];
+    datos.inventario = rawInv.map(o => reconstruirObjeto(o));
 
-    const personaje = new Personaje(
-        datos.nombre,
-        datos.nivel,
-        datos.experiencia,
-        datos.experienciaNecesaria,
-        datos.armaduraBase,
-        datos.velocidadBase,
-        datos.oro,
-        inventario,
-        datos.armaEquipada
-    );
+    const rawArma = JSON.parse(localStorage.getItem("armaEquipada"));
+    datos.armaEquipada = reconstruirObjeto(rawArma);
 
-    return personaje;
+    return new Personaje(datos);
 }
-

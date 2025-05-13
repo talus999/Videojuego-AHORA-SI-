@@ -37,9 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("btnInventario").style.display = "inline-block";
     });
 
-    document.getElementById("btnVolver").addEventListener("click", function()  {
-        console.log(personaje);
-        guardarPartida(personaje);
+    document.getElementById("btnVolver").addEventListener("click", () => {
         window.location.href = "base.html";
     });
 

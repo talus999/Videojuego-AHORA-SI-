@@ -89,6 +89,24 @@ body {
     z-index: 10;
 }
 
+#contenedorInventario {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%;
+    max-width: 800px;
+    gap: 20px;
+    padding: 10px;
+  }
+  #armaActual,
+  #listaInventario {
+    width: 45%;
+    margin-bottom: 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
 #armaActual, #listaInventario {
     background-color: rgba(50, 50, 50, 0.8);
     padding: 15px;
