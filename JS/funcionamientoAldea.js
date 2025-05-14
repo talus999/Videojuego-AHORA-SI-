@@ -1,47 +1,68 @@
 import { guardarPartida, cargarPersonaje } from "./codigo.js";
-import { Personaje } from "./Personaje.js";
-import { Vendedor } from "./Vendedor.js";
+import { Arma } from "./Objeto.js";
 
 let personaje;
+let seleccionado = null;
 
-document.addEventListener("DOMContentLoaded", function() {
-    const datos = cargarPersonaje();
-    personaje = new Personaje(datos);
+document.addEventListener("DOMContentLoaded", () => {
+  personaje = cargarPersonaje();
 
-    document.getElementById("btnInventario").addEventListener("click", function () {
-        document.getElementById("btnVolver").style.display = "none";
-        document.getElementById("btnTienda").style.display = "none";
-        document.getElementById("btnInventario").style.display = "none";
-    
-        const contenedor = document.getElementById("contenedorInventario");
-        const arma = document.getElementById("armaActual");
-        const lista = document.getElementById("listaInventario");
-    
-        const objetos = personaje.inventario.inventario || [];
-    
-        arma.innerHTML = "<h3>Arma equipada</h3><p>" + (personaje.armaEquipada?.nombre || "Ninguna") + "</p>";
-        lista.innerHTML = "<h3>Inventario</h3><ul>" +
-            objetos
-                .filter(obj => obj !== null)
-                .map(obj => `<li>${obj.nombre}</li>`)
-                .join('') +
-            "</ul>";
-    
-        contenedor.style.display = "flex";
+  const btnVolver = document.getElementById("btnVolver");
+  const btnTienda = document.getElementById("btnTienda");
+  const btnInv = document.getElementById("btnInventario");
+  const cont = document.getElementById("contenedorInventario");
+  const armaDiv = document.getElementById("armaActual");
+  const listaDiv = document.getElementById("listaInventario");
+  const btnEquipar = document.getElementById("btnEquipar");
+  const btnCerrar = document.getElementById("cerrarInventario");
+
+  btnInv.addEventListener("click", () => {
+    [btnVolver, btnTienda, btnInv].forEach(btn => btn.style.display = "none");
+
+    armaDiv.innerHTML = `<strong>Arma equipada:</strong> ${personaje.armaEquipada?.nombre || 'Ninguna'}`;
+
+    const items = personaje.inventario.inventario || [];
+    listaDiv.innerHTML = `<h3>Inventario</h3><ul id="inv-list"></ul>`;
+    const ul = document.getElementById("inv-list");
+    items.forEach((item, idx) => {
+      if (item) {
+        const li = document.createElement("li");
+        li.textContent = item.nombre;
+        li.className = "inv-item";
+        li.dataset.idx = idx;
+        ul.appendChild(li);
+      }
     });
 
-    document.getElementById("cerrarInventario").addEventListener("click", function () {
-        document.getElementById("contenedorInventario").style.display = "none";
-        document.getElementById("btnVolver").style.display = "inline-block";
-        document.getElementById("btnTienda").style.display = "inline-block";
-        document.getElementById("btnInventario").style.display = "inline-block";
+    seleccionado = null;
+    btnEquipar.disabled = true;
+
+    document.querySelectorAll(".inv-item").forEach(el => {
+      el.addEventListener("click", () => {
+        document.querySelectorAll(".inv-item").forEach(e => e.classList.remove("selected"));
+        el.classList.add("selected");
+        const idx = parseInt(el.dataset.idx);
+        seleccionado = personaje.inventario.inventario[idx];
+        btnEquipar.disabled = !(seleccionado instanceof Arma);
+      });
     });
 
-    document.getElementById("btnVolver").addEventListener("click", () => {
-        window.location.href = "base.html";
-    });
+    cont.style.display = "flex";
+  });
 
-    document.getElementById("btnTienda").addEventListener("click", function()  {
-        window.location.href = "tienda.html";
-    });
+  btnEquipar.addEventListener("click", () => {
+    if (seleccionado instanceof Arma) {
+      personaje.equiparArma(seleccionado);
+      guardarPartida(personaje);
+      btnInv.click();
+    }
+  });
+
+  btnCerrar.addEventListener("click", () => {
+    cont.style.display = "none";
+    [btnVolver, btnTienda, btnInv].forEach(btn => btn.style.display = "inline-block");
+  });
+
+  btnVolver.addEventListener("click", () => window.location.href = "base.html");
+  btnTienda.addEventListener("click", () => window.location.href = "tienda.html");
 });

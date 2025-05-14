@@ -90,8 +90,7 @@ body {
 }
 
 #contenedorInventario {
-    display: flex !important;
-    flex-direction: row !important;
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     width: 80%;
@@ -99,8 +98,7 @@ body {
     gap: 20px;
     padding: 10px;
   }
-  #armaActual,
-  #listaInventario {
+  #armaActual, #listaInventario {
     width: 45%;
     margin-bottom: 0;
     max-height: 300px;
@@ -132,6 +130,38 @@ body {
     background-color: #bf0808;
     box-shadow: 0px 0px 20px #e50505;
     border-color: #920909;
+}
+
+.inv-item {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.inv-item.selected {
+  background-color: rgba(200,200,255,0.3);
+  border-radius: 4px;
+}
+
+#btnEquipar {
+  background-color: #808080;
+  color: white;
+  border: none;
+  padding: 10px 15px;             
+  font-size: 32px;                
+  border-radius: 5px;             
+  cursor: not-allowed;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: none;
+}
+#btnEquipar:enabled {
+  background-color: gold;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7);
+}
+#btnEquipar:enabled:hover {
+  background-color: #e6c200;
+  transform: scale(1.1);
 }
 
 video {
