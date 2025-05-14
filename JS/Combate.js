@@ -1,4 +1,4 @@
-class Combate{
+export class Combate{
     constructor(personaje, enemigo){
         this.personaje = personaje;
         this.enemigo = enemigo;

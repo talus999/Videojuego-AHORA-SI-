@@ -1,10 +1,26 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combate</title>
-    <link rel="stylesheet" href="../CSS/combate.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Combate</title>
+  <link rel="stylesheet" href="../CSS/combate.css">
 </head>
 <body>
-</body>
+    <div id="combat-container">
+           <p id="en-vida-display" class="vida-display"></p>
+        <div id="panel-enemigo">
+            <img id="en-imagen" src="" alt="Enemigo">
+        </div>
+            <p id="pj-vida-display" class="vida-display"></p>
+        <div id="actions">
+            <button id="btn-atacar">Atacar</button>
+            <button id="btn-item">Ítem</button>
+            <button id="btn-huir">Huir</button>
+        </div>
+        <div id="combat-log"></div>
+    </div>
+  
+    <script type="module" src="../JS/funcionamientoCombate.js"></script>
+  </body>
 </html>

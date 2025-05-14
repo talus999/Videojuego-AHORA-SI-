@@ -65,4 +65,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnVolver.addEventListener("click", () => window.location.href = "base.html");
   btnTienda.addEventListener("click", () => window.location.href = "tienda.html");
+  document.getElementById("btnCombate").addEventListener("click", () => window.location.href = "combate.html");
 });

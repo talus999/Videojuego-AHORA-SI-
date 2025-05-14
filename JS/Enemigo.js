@@ -1,5 +1,5 @@
-class Enemigo {
-    constructor(nombre, nivel, vidaBase, dañoBase, armaduraBase, expBase, oroBase, velocidadBase) {
+export class Enemigo {
+    constructor(nombre, nivel, vidaBase, dañoBase, armaduraBase, expBase, oroBase, velocidadBase, imagen) {
         this.nombre = nombre;
         this.nivel = nivel;
         this.vidaBase = vidaBase;
@@ -8,6 +8,7 @@ class Enemigo {
         this.expBase = expBase;
         this.oroBase = oroBase;
         this.velocidadBase = velocidadBase;
+        this.imagen = imagen;
 
         this.calcularEstadisticas();
     }

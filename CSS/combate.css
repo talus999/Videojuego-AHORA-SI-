@@ -1,0 +1,111 @@
+body {
+    background-image: url(../recursos/Img/imgFondos/imgCombate.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+#combat-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+    text-align: center;
+    overflow: hidden;
+}
+
+.vida-display {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-shadow: 2px 2px 5px black;
+}
+  
+#en-vida-display {
+    color: #ffcc00;
+}
+  
+#pj-vida-display {
+    color: #00ff99;
+}
+
+#en-imagen {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+#actions {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-around;
+}
+  
+#actions button {
+    flex: 1;
+    margin: 0 8px;
+    padding: 14px 0;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #e63946, #d62828);
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+  
+#actions button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+}
+
+#combat-log {
+    margin-bottom: 100px; /* para dar espacio a la botonera */
+    max-height: 200px;
+    overflow-y: auto;
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+  
+#combat-log p {
+    margin: 4px 0;
+}
+
+#combat-log::-webkit-scrollbar {
+    width: 8px;
+}
+  
+#combat-log::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+  
+#combat-log::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
