@@ -40,7 +40,6 @@ function volverAlMenu() {
   );
   document.getElementById("menu-tienda").style.display = "flex";
   objetoSeleccionado = null;
-  // Ocultar detalles
   ["detalles-objeto","detalles-venta"].forEach(id => {
     const d = document.getElementById(id);
     if (d) d.style.display = "none";

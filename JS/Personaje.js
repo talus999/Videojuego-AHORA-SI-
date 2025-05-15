@@ -10,7 +10,7 @@ export class Personaje {
             this.velocidadBase = 4;
             this.experiencia = 0;
             this.experienciaNecesaria = 20;
-            this.oro = 1000;
+            this.oro = 15;
             this.inventario = new Inventario();
             this.armaEquipada = null;
         } else if (typeof datos === "object") {
@@ -24,7 +24,6 @@ export class Personaje {
             this.inventario = new Inventario();
             this.armaEquipada = datos.armaEquipada || null;
 
-            // Rellena inventario con instancias ya reconstruidas
             if (Array.isArray(datos.inventario)) {
                 datos.inventario.forEach((item, idx) => {
                     if (idx < this.inventario.capacidad) {
@@ -34,7 +33,6 @@ export class Personaje {
             }
         }
 
-        // Estadísticas basadas en nivel
         this.calcularEstadisticas(this.nivel);
         this.actualizarDaño();
         this.vidaPerdida = 0;
@@ -79,7 +77,7 @@ export class Personaje {
 
     subirNivel() {
         this.nivel++;
-        this.experienciaNecesaria = Math.floor(this.experienciaNecesaria * 2);
+        this.experienciaNecesaria = Math.floor(this.experienciaNecesaria * 1.5);
         this.calcularEstadisticas(this.nivel);
         console.log(`Has subido al nivel ${this.nivel}.`);
     }

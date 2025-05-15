@@ -23,6 +23,7 @@ export class Consumible extends Objetos {
     }
 
     usar(personaje) {
+        console.log ("A beber")
         switch (this.tipoEfecto) {
             case "curarVida":
                 this.efectoCurarVida(personaje);
@@ -39,11 +40,13 @@ export class Consumible extends Objetos {
             default:
                 console.log("Este consumible no tiene un efecto válido.");
         }
+
+        personaje.inventario.tirarObjeto(this.nombre);
     }
 
     efectoCurarVida(personaje) {
-        let vidaRestaurada = this.valorEfecto;
-        personaje.vidaPerdida -= vidaRestaurada;
+        personaje.vidaPerdida = Math.max( 0, personaje.vidaPerdida - this.valorEfecto);
+        console.log(`Has recuperado ${this.valorEfecto} puntos de vida.`);
     }
 
     efectoRestaurarMana(personaje) {
@@ -61,7 +64,8 @@ export class Consumible extends Objetos {
         personaje.armadura += this.valorEfecto;
     }
 
-    efectoAumentarVelocidad(personaje){
-        personaje.velocidad += this.valorEfecto;
+    efectoAumentarDefensa(personaje) {
+        personaje.armadura += this.valorEfecto;
+        console.log(`Tu armadura aumenta en ${this.valorEfecto}.`);
     }
 }

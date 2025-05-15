@@ -1,5 +1,4 @@
 import { Personaje } from "./Personaje.js";
-import { Inventario } from "./Inventario.js";
 import { Arma, Consumible } from "./Objeto.js";
 
 function reconstruirObjeto(obj) {
@@ -22,19 +21,40 @@ export function guardarPartida(personaje) {
     localStorage.setItem("armaduraBase", personaje.armaduraBase);
     localStorage.setItem("velocidadBase", personaje.velocidadBase);
     localStorage.setItem("oro", personaje.oro);
+    
 
     const rawInv = personaje.inventario.inventario.map(item => {
         if (!item) return null;
         return {
-            ...item,
-            tipo: item instanceof Arma ? "arma" : item instanceof Consumible ? "consumible" : null
+            peso: item.peso,
+            nombre: item.nombre,
+            descripcion: item.descripcion,
+            precio: item.precio,
+            ...(item instanceof Arma
+                ? { daño: item.daño, tipo: "arma" }
+                : item instanceof Consumible
+                    ? {
+                        tipoEfecto: item.tipoEfecto,
+                        valorEfecto: item.valorEfecto,
+                        tipo: "consumible"
+                      }
+                    : { tipo: null }
+            )
         };
     });
+
     localStorage.setItem("inventario", JSON.stringify(rawInv));
-    const rawArma = personaje.armaEquipada
-        ? { ...personaje.armaEquipada, tipo: "arma" }
-        : null;
+
+    const rawArma = personaje.armaEquipada ? {
+            peso: personaje.armaEquipada.peso,
+            nombre: personaje.armaEquipada.nombre,
+            descripcion: personaje.armaEquipada.descripcion,
+            precio: personaje.armaEquipada.precio,
+            daño: personaje.armaEquipada.daño,
+            tipo: "arma"
+        } : null;
     localStorage.setItem("armaEquipada", JSON.stringify(rawArma));
+
     console.log("¡Partida guardada!");
 }
 
@@ -46,7 +66,9 @@ export function cargarPersonaje() {
         experienciaNecesaria: parseInt(localStorage.getItem("experienciaNecesaria")) || 20,
         armaduraBase: parseFloat(localStorage.getItem("armaduraBase")) || 2,
         velocidadBase: parseFloat(localStorage.getItem("velocidadBase")) || 4,
-        oro: parseInt(localStorage.getItem("oro")) || 0
+        oro: parseInt(localStorage.getItem("oro")) || 0,
+        inventario: [],
+        armaEquipada: null
     };
 
     const rawInv = JSON.parse(localStorage.getItem("inventario")) || [];
